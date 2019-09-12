@@ -5,11 +5,13 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        int people = 1000;
+
+        // number of samples
+        int people = 10000;
         Random random = new Random();
         List<People> peopleList = new ArrayList<>(lowerThan2PowerOf(people));
         for (int i = 0; i < people; i++) {
-            int ability = (int) ((random.nextGaussian() + 0.5) * 100.0);
+            int ability = (int) ((random.nextGaussian() * 0.3 + 0.5) * 100.0);
             if (ability < 0) {
                 ability = 30;
             }
@@ -19,9 +21,11 @@ public class Main {
             peopleList.add(new People(ability));
         }
 
-        for (int i = 0; i < 10 ; i++) {
+        // number of chance
+        int chance = 10;
+        for (int i = 0; i < chance; i++) {
             peopleList.forEach(o -> {
-                int luck = (int) ((new Random().nextGaussian() + 0.5) * 100.0);
+                int luck = (int) ((new Random().nextGaussian() * 0.3 + 0.5) * 100.0);
                 if (luck < 0) {
                     luck = 0;
                 }
@@ -32,7 +36,6 @@ public class Main {
                 o.setMaxAchievement(Math.max(o.getMaxAchievement(), (o.getAbility() * luck)));
             });
         }
-
 
         peopleList.sort(Comparator.comparingInt(People::getTotalAchievement));
         Collections.reverse(peopleList);
